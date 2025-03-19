@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내차어때 - 문의하기</title>
+    <!-- 파비콘-->
+    <link rel="icon" href="../favicon/favicon.ico" />
+    <!-- 부트스트랩 아이콘-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- 부트스트랩 js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 기본 테마 CSS (부트스트랩 포함)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        .file-drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .file-drop-area:hover {
+            background-color: #f8f9fa;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/html/index.html" style="font-size: 2rem;">내차어때</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="네비게이션 전환"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="carList.html">중고차 구경하기</a></li>
+                    <li class="nav-item"><a class="nav-link" href="request.html">고객센터</a></li>
+                </ul>
+                <form class="d-flex">
+                    <a href="../html/mypage.html" id="my-page-btn" class="btn btn-outline-dark ms-2"
+                        style="display: none;">마이페이지</a>
+                    <a id="admin-page-btn" href="admin.html" class="btn btn-outline-dark ms-2" style="display: none;">
+                        관리자페이지
+                    </a>
+                    <button id="login-logout-btn" class="btn btn-outline-dark ms-2" type="button"
+                        onclick="toggleLoginState()">로그인</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5">
+        <div class="container mt-3">
+            <h1 class="mb-4" style="border-bottom: 2px solid #000; padding-bottom: 10px;">문의하기</h1>
+            <!-- 이메일 입력 -->
+            <div class="row mb-4">
+                <label for="email" class="col-sm-2 col-form-label">이메일 주소 <span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="user@example.com" required>
+                </div>
+            </div>
+
+            <!-- 문의 유형 -->
+            <div class="row mb-4">
+                <label for="inquiryDropdown" class="col-sm-2 col-form-label">문의 유형 <span
+                        class="text-danger">*</span></label>
+                <div class="col-sm-10 col-12">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="inquiryDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        선택하세요
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="inquiryDropdown">
+                        <li><a class="dropdown-item" href="javascript:void(0);" onclick="selectInquiryType('기타')">기타</a>
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);"
+                                onclick="selectInquiryType('버그제보')">버그제보</a></li>
+                    </ul>
+                    <input type="hidden" id="statusType" name="statusType" required>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="title" class="col-sm-2 col-form-label">제목 <span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="title" maxlength="100" placeholder="100자 이내로 입력하세요"
+                        required>
+                </div>
+            </div>
+            <!-- 내용 입력 -->
+            <div class="row mb-4">
+                <label for="content" class="col-sm-2 col-form-label">내용 <span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="content" style="resize: none;" rows="12" maxlength="2000"
+                        placeholder="제목, 내용, 파일 첨부에 개인정보를 입력하지 마세요." required></textarea>
+                    <small class="form-text text-muted">
+                        <span id="charCount">0</span> / 2000자
+                    </small>
+                </div>
+            </div>
+
+            <!-- 파일 첨부 -->
+            <div class="row mb-4">
+                <label for="fileInput" class="col-sm-2 col-form-label">파일 첨부</label>
+                <div class="col-sm-10">
+                    <div class="file-drop-area" id="fileDropArea">
+                        영역을 클릭하여 파일을 첨부할 수 있습니다.
+                    </div>
+                    <input type="file" id="fileInput" class="form-control-file d-none" multiple>
+                    <ul class="list-group mt-2 mb-3" id="fileList"></ul>
+                </div>
+            </div>
+
+            <div class="text-center m-5">
+                <!-- 클릭 시 폼 제출 처리 -->
+                <button type="button" id="submitBtn" class="btn btn-primary btn-lg p-3">문의
+                    제출</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터-->
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p>&copy; 2025 내차어때 - 안전거래 중고차 사이트</p>
+            <p><a href="#" class="text-white">이용 약관</a> | <a href="#" class="text-white">개인정보 처리방침</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/request.js"></script>
+</body>
+
+</html>

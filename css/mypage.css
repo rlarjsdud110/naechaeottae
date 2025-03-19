@@ -1,0 +1,63 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.card-body {
+    max-height: 300px;
+    /* 최대 높이 설정 */
+    overflow-y: auto;
+    /* 수직 스크롤 추가 */
+}
+
+/* 장바구니 */
+.card-body {
+    max-height: 300px;
+    /* 최대 높이 설정 */
+    overflow-y: auto;
+    /* 수직 스크롤 추가 */
+}
+
+.table tbody tr {
+    cursor: pointer;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.list-group .list-group-item {
+    cursor: pointer;
+}
+
+.list-group .list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+
+    .table th,
+    .table td {
+        font-size: 12px;
+        /* 모바일에서 폰트 크기 줄이기 */
+    }
+
+    .card-body {
+        padding: 1rem;
+        /* 모바일에서 카드 내부 여백을 줄이기 */
+    }
+
+    .table {
+        margin-bottom: 0;
+        /* 테이블 아래 여백을 제거 */
+    }
+}

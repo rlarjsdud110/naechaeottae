@@ -1,0 +1,80 @@
+/* 기본 공지사항 카드 스타일 */
+.notice-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.notice-card a {
+    font-size: 24px;
+}
+
+.notice-card p {
+    font-size: 20px;
+}
+
+/* 조회순위, 최신등록 차량 */
+.ranking-section {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.ranking-box {
+    width: 45%;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking-list li {
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ranking-list li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.ranking-list li a:hover {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+/*핫딜 이미지*/
+.card-img-top {
+    width: 100%;
+    height: auto;
+    height: 250px;
+}
+
+.card-body p {
+    margin-bottom: 0.25rem;
+}
+
+
+@media (max-width: 768px) {
+    .ranking-section .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ranking-box {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+}

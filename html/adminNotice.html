@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>내차어때 - 관리자</title>
+    <!-- 파비콘 -->
+    <link rel="icon" href="../favicon/favicon.ico">
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet" />
+    <!-- 부트스트랩 아이콘 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- 부트스트랩 js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" style="font-size: 1.6rem;" href="admin.html">내차어때 관리자</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" type="button"><i
+                class="fas fa-bars" style="font-size: 1.5rem;"></i></button>
+
+        <!-- Navbar-->
+        <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" onclick="toggleLoginState()">로그아웃</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="admin.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            대시보드
+                        </a>
+                        <div class="sb-sidenav-menu-heading" style="font-size: 1rem;">고객화면</div>
+
+                        <div class="clientPage-list">
+                            <a class="nav-link" href="login.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                                로그인페이지
+                            </a>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                메인페이지
+                            </a>
+                            <a class="nav-link" href="carList.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                                중고차리스트
+                            </a>
+                        </div>
+                        <div class="sb-sidenav-menu-heading" style="font-size: 1rem;">관리</div>
+                        <div class="user-management">
+                            <a class="nav-link" href="adminRequest.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                                문의 관리
+                            </a>
+                            <a class="nav-link" href="adminCars.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                                차량 관리
+                            </a>
+                            <a class="nav-link" href="adminNotice.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                공지사항 관리
+                            </a>
+                            <a class="nav-link" href="adminUsers.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                고객 관리
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">내차어때</div>
+                    관리자 페이지
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="mt-4">공지사항 관리</h1>
+                        <a class="btn btn-lg btn-outline-dark mt-auto" id="addNoticeBtn">공지사항 추가</a>
+                    </div>
+
+                    <div id="addNoticeForm" style="display: none;" class="mt-2">
+                        <form id="noticeForm">
+                            <div class="form-group">
+                                <label for="noticeTitle">공지사항 제목</label>
+                                <input type="text" id="noticeTitle" class="form-control mt-2" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="noticeContent">공지사항 내용</label>
+                                <textarea id="noticeContent" class="form-control mt-2" style="resize: none;"
+                                    required></textarea>
+                            </div>
+                            <div class="d-flex justify-content-end mt-3 gap-2">
+                                <button type="submit"
+                                    class="btn btn-lg btn-outline-dark mt-2 mb-3 mr-4 px-4 py-3">등록</button>
+                                <button type="button" id="cancelBtn"
+                                    class="btn btn-lg btn-outline-dark mt-2 mb-3 px-4 py-3">취소</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <table class="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>내용</th>
+                                <th>작성일</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody id="noticeTableBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="../js/adminNotice.js"></script>
+
+</body>
+
+</html>

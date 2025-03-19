@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="내차어때 - 안전거래 중고차 사이트" />
+    <meta name="author" content="김건영" />
+    <title>내차어때 - 마이페이지</title>
+    <!-- 파비콘-->
+    <link rel="icon" href="../favicon/favicon.ico" />
+    <!-- 부트스트랩 아이콘-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- 부트스트랩 js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 기본 테마 CSS (부트스트랩 포함)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../css/mypage.css" rel="stylesheet" />
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- 내비게이션 바-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/html/index.html" style="font-size: 2rem;">내차어때</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="네비게이션 전환"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="carList.html">중고차 구경하기</a></li>
+                    <li class="nav-item"><a class="nav-link" href="request.html">고객센터</a></li>
+                </ul>
+                <form class="d-flex">
+                    <a href="../html/mypage.html" id="my-page-btn" class="btn btn-outline-dark ms-2"
+                        style="display: none;">
+                        마이페이지
+                    </a>
+                    <button id="login-logout-btn" class="btn btn-outline-dark ms-2" type="button"
+                        onclick="toggleLoginState()">
+                        로그인
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 마이페이지 섹션 -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-2">마이페이지</h2>
+            <div class="row">
+                <!-- 사용자 정보 -->
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>내 정보</h5>
+                        </div>
+                        <div class="card-body">
+                            <p id="user-name"><strong>이름: </strong> </p>
+                            <p id="user-email"><strong>이메일: </strong> </p>
+                            <p id="user-phone"><strong>전화번호: </strong> </p>
+                            <div class="edit-buttons">
+                                <!-- 회원 정보 수정 버튼 -->
+                                <button id="edit-info-btn" class="btn btn-outline-primary" onclick="editUserInfo()">회원
+                                    정보 수정</button>
+                                <!-- 수정 취소 버튼 (처음엔 숨겨져 있음) -->
+                                <button id="cancel-info-btn" class="btn btn-outline-primary" style="display: none;"
+                                    onclick="cancelEditUserInfo()">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 문의 내역 -->
+                <div class="col-md-8 mt-2">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>문의 내역</h5>
+                            <a class="btn btn-sm" href="request.html">문의하기</a>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>제목</th>
+                                        <th>문의일</th>
+                                        <th>문의 유형</th>
+                                        <th>신청 현황</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 구매 내역 -->
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>구매 요청</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>자동차</th>
+                                        <th>문의일</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="purchase-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 즐겨찾기 -->
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h5>찜 목록</h5>
+                </div>
+                <div class="card-body">
+                    <h6>내가찜한 차량</h6>
+                    <ul class="list-group">
+                        <!-- <li class="list-group-item">
+                            <span>기아 K5</span>
+                            <button class="btn btn-outline-danger btn-sm float-end">삭제</button>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터-->
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p>&copy; 2025 내차어때 - 안전거래 중고차 사이트</p>
+            <p><a href="#" class="text-white">이용 약관</a> | <a href="#" class="text-white">개인정보 처리방침</a></p>
+        </div>
+    </footer>
+
+    <script src="../js/mypage.js"></script>
+</body>
+
+</html>
