@@ -1,7 +1,6 @@
 let accessToken = null;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // DOM 요소들 초기화
     const searchInput = document.getElementById("searchUser");
     const prevPageBtn = document.getElementById("prev-page");
     const nextPageBtn = document.getElementById("next-page");
@@ -11,33 +10,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     accessToken = localStorage.getItem("AccessToken");
 
-    // 로그인 및 권한 체크
     if (!accessToken || !checkAdminRole()) {
         alert('관리자만 접근 가능합니다.');
         window.location.href = '../html/login.html';
         return;
     }
 
-    // 검색 입력에 따라 유저 목록을 새로 고침
     searchInput.addEventListener("input", function () {
-        fetchUsers(0, searchInput.value); // 페이지는 첫 페이지로 리셋
+        fetchUsers(0, searchInput.value);
     });
 
-    // 이전 페이지 버튼 클릭 시
+
     prevPageBtn.addEventListener("click", function () {
         if (currentPage > 0) fetchUsers(currentPage - 1, searchInput.value);
     });
 
-    // 다음 페이지 버튼 클릭 시
     nextPageBtn.addEventListener("click", function () {
         if (currentPage < totalPages - 1) fetchUsers(currentPage + 1, searchInput.value);
     });
 
-    // 초기 유저 목록 불러오기 (검색어 없이)
     fetchUsers();
 });
 
-// 유저 목록을 가져오는 함수
 function fetchUsers(page = 0, searchQuery = "") {
     const url = `http://localhost:8080/api/admin/users?page=${page}&size=10&search=${searchQuery}`;
 
@@ -54,10 +48,9 @@ function fetchUsers(page = 0, searchQuery = "") {
         .catch(error => console.error("Error fetching users:", error));
 }
 
-// 유저 목록을 렌더링하는 함수
 function renderUserList(users) {
     const userList = document.getElementById("user-list");
-    userList.innerHTML = "";  // 이전 데이터를 비움
+    userList.innerHTML = "";
 
     users.forEach(user => {
         const tr = document.createElement("tr");
@@ -72,7 +65,6 @@ function renderUserList(users) {
     });
 }
 
-// 페이지네이션 버튼을 렌더링하는 함수
 function renderPagination() {
     const pageNumbers = document.getElementById("page-numbers");
     pageNumbers.innerHTML = `${currentPage + 1} / ${totalPages}`;
@@ -86,13 +78,11 @@ function renderPagination() {
     nextPageBtn.disabled = currentPage === totalPages - 1;
 }
 
-// 관리자 권한 체크
 function checkAdminRole() {
     const adminRole = localStorage.getItem("Role");
     return adminRole === "ADMIN";
 }
 
-// 로그인 상태 토글 함수
 function toggleLoginState() {
     const isLoggedIn = localStorage.getItem("AccessToken");
     if (isLoggedIn) {

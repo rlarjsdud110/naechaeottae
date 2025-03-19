@@ -17,14 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 초기 요청 로드 (일반 문의)
     fetchRequestList(currentTab);
     const tabs = document.querySelectorAll('#requestTabs a');
     tabs.forEach(tab => {
         tab.addEventListener('click', function (e) {
             e.preventDefault();
 
-            const tabId = e.target.getAttribute('href').substring(1); // #을 제외한 탭 ID
+            const tabId = e.target.getAttribute('href').substring(1);
 
             let currentTabValue = tabId;
             if (tabId === 'purchaseRequests') {
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentTab = currentTabValue;
             fetchRequestList(currentTab);
 
-            // 탭 활성화 처리
             tabs.forEach(tab => tab.classList.remove('active'));
             e.target.classList.add('active');
         });
@@ -99,7 +97,6 @@ function renderRequestList(requests, tab) {
         }
 
         if (tab === 'general') {
-            // 일반 문의에 맞는 데이터 구조
             row.innerHTML = `
                 <td>${request.email}</td>
                 <td>${request.title || request.carName}</td>
@@ -112,7 +109,6 @@ function renderRequestList(requests, tab) {
                 </td>
             `;
         } else if (tab === 'purchase') {
-            // 구매 요청에 맞는 데이터 구조
             row.innerHTML = `
                 <td>${request.carId}</td>
                 <td>${request.userName}</td>
@@ -133,7 +129,7 @@ function viewRequestDetail(requestId) {
 
     if (!requestDetailElement) {
         console.error('requestDetail 요소를 찾을 수 없습니다.');
-        return; // 요소가 없으면 함수 종료
+        return;
     }
 
     axios.get(`http://localhost:8080/api/consult/${requestId}`, {
@@ -170,7 +166,6 @@ function viewRequestDetail(requestId) {
             `;
             requestDetailElement.innerHTML = detailHtml;
 
-            // 답변 등록 버튼 클릭 시 처리
             document.getElementById('submitAnswer').addEventListener('click', () => {
                 const answer = document.getElementById('adminAnswer').value;
 
@@ -179,13 +174,11 @@ function viewRequestDetail(requestId) {
                     return;
                 }
 
-                // 요청에 포함될 데이터 생성
                 const dataToSend = {
-                    answer: answer,           // 실제 답변 내용
-                    taskType: '답변완료'       // taskType에 '답변완료' 추가
+                    answer: answer,
+                    taskType: '답변완료'
                 };
 
-                // 답변을 서버로 PATCH 요청으로 전송
                 axios.patch(`http://localhost:8080/api/admin/consult/${requestId}`, dataToSend,
                     {
                         headers: {
@@ -194,8 +187,8 @@ function viewRequestDetail(requestId) {
                     })
                     .then(() => {
                         alert('답변이 등록되었습니다.');
-                        requestDetailElement.innerHTML = ''; // 상세보기 내용 지우기
-                        fetchRequestList(currentTab); // 목록 새로 고침
+                        requestDetailElement.innerHTML = '';
+                        fetchRequestList(currentTab);
                     })
                     .catch(error => {
                         console.error('답변 등록 오류:', error);
@@ -203,9 +196,8 @@ function viewRequestDetail(requestId) {
                     });
             });
 
-            // 취소 버튼 클릭 시 상세보기 숨기기
             document.getElementById('cancelButton').addEventListener('click', () => {
-                requestDetailElement.innerHTML = ''; // 상세보기 내용 지우기
+                requestDetailElement.innerHTML = '';
             });
         })
         .catch(error => {
@@ -222,14 +214,12 @@ function viewRequestDetail(requestId) {
 function deleteRequest(requestId, tab) {
     let url = '';
 
-    // 탭에 따라 삭제 URL 설정
     if (tab === 'general') {
         url = `http://localhost:8080/api/admin/consult/${requestId}`;
     } else if (tab === 'purchase') {
         url = `http://localhost:8080/api/admin/purchase/${requestId}`;
     }
 
-    // 삭제 요청 보내기
     axios.delete(url, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -237,7 +227,7 @@ function deleteRequest(requestId, tab) {
     })
         .then(response => {
             alert('요청이 삭제되었습니다.');
-            fetchRequestList(tab);  // 삭제 후 다시 목록을 가져옴
+            fetchRequestList(tab);
         })
         .catch(error => {
             console.error('삭제 실패:', error);

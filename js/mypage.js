@@ -1,7 +1,7 @@
 let accessToken = null;
 
 document.addEventListener("DOMContentLoaded", function () {
-    accessToken = localStorage.getItem("AccessToken");  // 전역 변수에 할당
+    accessToken = localStorage.getItem("AccessToken");
     if (accessToken) {
         isLoggedIn = true;
     }
@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let isLoggedIn = false;
 
-// 로그인/로그아웃 상태 업데이트 함수
 function updateLoginState() {
     if (isLoggedIn) {
         document.getElementById('login-logout-btn').textContent = '로그아웃';
@@ -23,54 +22,44 @@ function updateLoginState() {
     }
 }
 
-// 로그인 상태 토글 함수
 function toggleLoginState() {
     if (isLoggedIn) {
-        // 로그아웃 처리
         localStorage.removeItem("AccessToken");
         alert('로그아웃 완료');
         isLoggedIn = false;
-        window.location.href = '../html/index.html';
+        window.location.href = '../index.html';
     } else {
-        // 로그인 상태에서 로그아웃 처리 후 페이지 갱신
-        window.location.href = '../html/login.html';  // 로그인 페이지로 리다이렉트
+        window.location.href = '../html/login.html';
     }
 
-    // 로그인 상태 갱신 (로그아웃 후 상태 변경)
     updateLoginState();
 }
 
-// 문의 내역 데이터 로드 함수
 function loadConsultData() {
-    // Axios를 사용하여 서버에서 문의 내역 데이터 요청
     axios.get('http://localhost:8080/api/consult/list', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
     })
         .then(response => {
-            const inquiries = response.data.result; // 서버에서 받은 문의 내역 데이터
-            const tbody = document.querySelector('tbody'); // tbody 요소
+            const inquiries = response.data.result;
+            const tbody = document.querySelector('tbody');
 
             inquiries.forEach(inquiry => {
-                const tr = document.createElement('tr'); // 새로운 tr 생성
+                const tr = document.createElement('tr');
 
-                // 제목 열 생성
                 const titleTd = document.createElement('td');
                 titleTd.textContent = inquiry.title;
                 tr.appendChild(titleTd);
 
-                // 문의일 열 생성
                 const dateTd = document.createElement('td');
-                dateTd.textContent = new Date(inquiry.createdAt).toLocaleDateString(); // 날짜 포맷을 변환하여 표시
+                dateTd.textContent = new Date(inquiry.createdAt).toLocaleDateString();
                 tr.appendChild(dateTd);
 
-                // 작업 열 생성 (배지 추가)
                 const actionTd = document.createElement('td');
 
-                // 작업 상태에 따라 배지 추가
                 const taskBadge = document.createElement('span');
-                taskBadge.classList.add('badge'); // 기본 배지 클래스
+                taskBadge.classList.add('badge');
                 switch (inquiry.taskType) {
                     case '접수완료':
                         taskBadge.classList.add('bg-warning');
@@ -94,7 +83,6 @@ function loadConsultData() {
                 statusTd.textContent = inquiry.statusType;
                 tr.appendChild(statusTd);
 
-                // 상태 열 생성
                 actionTd.appendChild(taskBadge);
                 tr.appendChild(actionTd);
 
@@ -102,7 +90,6 @@ function loadConsultData() {
                     window.location.href = `requestDetails.html?id=${inquiry.id}`;
                 };
 
-                // 생성된 tr을 tbody에 추가
                 tbody.appendChild(tr);
             });
         })
@@ -110,7 +97,7 @@ function loadConsultData() {
             if (error.response && error.response.status === 403) {
                 alert("토큰이 만료되었습니다. 로그인 페이지로 이동합니다.");
                 localStorage.removeItem("AccessToken");
-                window.location.href = "login.html"; // 로그인 페이지로 이동
+                window.location.href = "login.html";
             } else {
                 console.error("문의 내역 로딩 실패:", error);
                 alert('문의 내역을 불러오는 데 실패했습니다.');
@@ -121,13 +108,13 @@ function loadConsultData() {
 function loadUserInfo() {
     if (!accessToken) {
         alert("토큰이 만료되었습니다. 다시 로그인해 주세요.");
-        window.location.href = "../html/index.html";
+        window.location.href = "../index.html";
         return;
     }
 
     axios.get('http://localhost:8080/api/users/userInfo', {
         headers: {
-            Authorization: `Bearer ${accessToken}`  // 전역 변수 사용
+            Authorization: `Bearer ${accessToken}`
         }
     })
         .then(response => {
@@ -139,76 +126,63 @@ function loadUserInfo() {
         .catch(error => {
             console.error("사용자 정보 불러오기 실패:", error);
 
-            // 서버에서 반환된 resultCode 확인
             if (error.response && error.response.data && error.response.data.resultCode === "USER_NOT_FOUND") {
                 alert("사용자를 찾을 수 없습니다. 다시 로그인해 주세요.");
                 localStorage.removeItem("AccessToken");
-                window.location.href = "../html/index.html";
+                window.location.href = "../index.html";
             }
         });
 }
 
-// 회원 정보 수정 함수
-let originalUserInfo = {}; // 원본 정보 저장
+let originalUserInfo = {};
 
 function editUserInfo() {
     const userName = document.getElementById("user-name");
     const userEmail = document.getElementById("user-email");
     const userPhone = document.getElementById("user-phone");
 
-    // 원본 정보 저장
     originalUserInfo = {
         name: userName.innerHTML,
         email: userEmail.innerHTML,
         phone: userPhone.innerHTML
     };
 
-    // 이름을 input으로 변환
     userName.innerHTML = `<input type="text" id="edit-name" value="${userName.innerHTML}" class="form-control">`;
-    // 이메일을 input으로 변환
     userEmail.innerHTML = `<input type="email" id="edit-email" value="${userEmail.innerHTML}" class="form-control">`;
-    // 전화번호를 input으로 변환
     userPhone.innerHTML = `<input type="tel" id="edit-phone" value="${userPhone.innerHTML}" class="form-control">`;
 
-    // 버튼 텍스트 변경
     const editButton = document.getElementById("edit-info-btn");
     editButton.innerHTML = "수정 완료";
     editButton.setAttribute("onclick", "saveUserInfo()");
 
-    // 수정 취소 버튼 추가
     const cancelButton = document.getElementById("cancel-info-btn");
-    cancelButton.style.display = "inline-block"; // 취소 버튼 표시
+    cancelButton.style.display = "inline-block";
     cancelButton.setAttribute("onclick", "cancelEditUserInfo()");
 }
 
-// 수정된 정보 저장 함수
 function saveUserInfo() {
     const updatedName = document.getElementById("edit-name").value;
     const updatedEmail = document.getElementById("edit-email").value;
     const updatedPhone = document.getElementById("edit-phone").value;
 
-    // 변경된 정보를 화면에 반영
     document.getElementById("user-name").innerText = updatedName;
     document.getElementById("user-email").innerText = updatedEmail;
     document.getElementById("user-phone").innerText = updatedPhone;
 
-    // 버튼 텍스트 변경 및 클릭 이벤트 변경
     const editButton = document.getElementById("edit-info-btn");
     editButton.innerHTML = "회원 정보 수정";
     editButton.setAttribute("onclick", "editUserInfo()");
 
-    // 수정 취소 버튼 숨김
     const cancelButton = document.getElementById("cancel-info-btn");
     cancelButton.style.display = "none";
 
-    // 서버에 변경된 사용자 정보 전송
     axios.put('http://localhost:8080/api/users/update', {
         name: updatedName,
         email: updatedEmail,
         phone: updatedPhone
     }, {
         headers: {
-            Authorization: `Bearer ${accessToken}`  // 전역 변수 사용
+            Authorization: `Bearer ${accessToken}`
         }
     })
         .then(response => {
@@ -220,23 +194,19 @@ function saveUserInfo() {
         });
 }
 
-// 수정 취소 함수
 function cancelEditUserInfo() {
     const userName = document.getElementById("user-name");
     const userEmail = document.getElementById("user-email");
     const userPhone = document.getElementById("user-phone");
 
-    // 원본 정보로 되돌리기
     userName.innerText = originalUserInfo.name;
     userEmail.innerText = originalUserInfo.email;
     userPhone.innerText = originalUserInfo.phone;
 
-    // 버튼 텍스트 변경 및 클릭 이벤트 변경
     const editButton = document.getElementById("edit-info-btn");
     editButton.innerHTML = "회원 정보 수정";
     editButton.setAttribute("onclick", "editUserInfo()");
 
-    // 수정 취소 버튼 숨김
     const cancelButton = document.getElementById("cancel-info-btn");
     cancelButton.style.display = "none";
 }
@@ -244,17 +214,16 @@ function cancelEditUserInfo() {
 const signupPhone = document.getElementById("user-phone");
 if (signupPhone) {
     signupPhone.addEventListener("input", function (e) {
-        let phone = e.target.value.replace(/[^0-9]/g, '');  // 숫자만 추출
+        let phone = e.target.value.replace(/[^0-9]/g, '');
         if (phone.length > 3 && phone.length <= 6) {
-            phone = phone.replace(/(\d{3})(\d{1,4})/, '$1-$2');  // 3자 + 1~4자
+            phone = phone.replace(/(\d{3})(\d{1,4})/, '$1-$2');
         } else if (phone.length > 6) {
-            phone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');  // 3자 + 4자 + 4자
+            phone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
         }
-        e.target.value = phone.slice(0, 13);  // 13자리 이상은 잘림
+        e.target.value = phone.slice(0, 13);
     });
 }
 
-// 장바구니 데이터 로드 함수
 function loadCartData() {
     axios.get('http://localhost:8080/api/users/cart', {
         headers: {
@@ -282,9 +251,8 @@ function loadCartData() {
                 removeButton.textContent = '삭제';
                 removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
 
-                // 삭제 버튼 클릭 이벤트 (이벤트 버블링 방지)
                 removeButton.onclick = function (event) {
-                    event.stopPropagation(); // 리스트 클릭 이벤트 방지
+                    event.stopPropagation();
                     removeCartItem(item.id);
                 };
 
@@ -299,47 +267,40 @@ function loadCartData() {
         });
 }
 
-// 구매 내역 데이터 로드 함수
 function loadPurchaseData() {
-    // 구매 요청 내역을 API에서 받아옴
     axios.get('http://localhost:8080/api/users/purchase', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
     })
         .then(response => {
-            const purchases = response.data.result;  // 서버에서 받은 구매 내역 데이터
-            const tbody = document.getElementById("purchase-list");  // 구매 내역을 표시할 tbody 요소
+            const purchases = response.data.result;
+            const tbody = document.getElementById("purchase-list");
 
             purchases.forEach(purchase => {
-                const tr = document.createElement('tr');  // 새로운 tr 생성
+                const tr = document.createElement('tr');
 
-                // 자동차 열 생성
                 const carTd = document.createElement('td');
-                carTd.textContent = purchase.model;  // 자동차 모델
+                carTd.textContent = purchase.model;
                 tr.appendChild(carTd);
 
-                // 문의일 열 생성
                 const dateTd = document.createElement('td');
-                dateTd.textContent = new Date(purchase.createdAt).toLocaleDateString();  // 날짜 포맷을 변환하여 표시
+                dateTd.textContent = new Date(purchase.createdAt).toLocaleDateString();
                 tr.appendChild(dateTd);
 
-                // 취소 버튼 생성
                 const cancelButtonTd = document.createElement('td');
                 const cancelButton = document.createElement('button');
                 cancelButton.textContent = '취소';
                 cancelButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
 
-                // 취소 버튼 클릭 이벤트
                 cancelButton.onclick = function (event) {
-                    event.stopPropagation();  // 리스트 클릭 이벤트 방지
+                    event.stopPropagation();
                     removePurchaseItem(purchase.id);
                 };
 
                 cancelButtonTd.appendChild(cancelButton);
                 tr.appendChild(cancelButtonTd);
 
-                // tr을 tbody에 추가
                 tbody.appendChild(tr);
             });
         })
@@ -349,7 +310,6 @@ function loadPurchaseData() {
         });
 }
 
-// 구매 요청 취소 (삭제)
 function removePurchaseItem(purchaseId) {
     axios.delete(`http://localhost:8080/api/users/purchase/${purchaseId}`, {
         headers: {
@@ -366,7 +326,6 @@ function removePurchaseItem(purchaseId) {
         });
 }
 
-//장바구니 삭제
 function removeCartItem(itemId) {
     axios.delete(`http://localhost:8080/api/users/cart/delete/${itemId}`, {
         headers: {

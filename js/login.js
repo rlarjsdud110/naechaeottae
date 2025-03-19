@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
 
-    // 로그인 → 회원가입
     if (toggleToRegister) {
         toggleToRegister.addEventListener("click", function (event) {
             event.preventDefault();
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 회원가입 → 로그인
     if (toggleToLogin) {
         toggleToLogin.addEventListener("click", function (event) {
             event.preventDefault();
@@ -29,17 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 회원가입 버튼 클릭 시 로그인 폼 숨기고 회원가입 폼 표시
     if (registerButton) {
         registerButton.addEventListener("click", function (event) {
             event.preventDefault();
             loginForm.style.display = "none";
             registerForm.style.display = "block";
-            formTitle.textContent = "회원가입";  // 폼 제목 변경
+            formTitle.textContent = "회원가입";
         });
     }
 
-    // 핸드폰 번호 자동 포맷팅 (signup-phone이 있을 경우에만)
     const signupPhone = document.getElementById("signup-phone");
     if (signupPhone) {
         signupPhone.addEventListener("input", function (e) {
@@ -53,12 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 실시간 비밀번호 확인
     const passwordField = document.getElementById("signup-password");
     const confirmPasswordField = document.getElementById("confirm-password");
     const passwordError = document.getElementById("password-error");
 
-    // 비밀번호 확인 입력 시 실시간으로 확인
     confirmPasswordField.addEventListener("input", function () {
         if (passwordField.value !== confirmPasswordField.value) {
             passwordError.style.display = "block";
@@ -69,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 비밀번호 입력 시에도 일치 여부 체크
     passwordField.addEventListener("input", function () {
         if (passwordField.value !== confirmPasswordField.value) {
             passwordError.style.display = "block";
@@ -80,25 +73,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 회원가입 폼 제출 시 처리
     const registerFormSubmit = document.getElementById("register-form");
     if (registerFormSubmit) {
         registerFormSubmit.addEventListener("submit", function (event) {
-            event.preventDefault(); // 폼의 기본 제출 동작을 막음
-            // 회원가입 데이터를 수집
+            event.preventDefault();
             const formData = new FormData(registerFormSubmit);
             const formObject = {};
 
-            // 비밀번호 확인 필드를 제외한 데이터를 수집
             formData.forEach((value, key) => {
-                if (key !== 'confirmPassword') {  // 비밀번호 확인 필드를 제외
+                if (key !== 'confirmPassword') {
                     formObject[key] = value;
                 }
             });
 
             axios.post('http://localhost:8080/api/users/signup', formObject)
                 .then(response => {
-                    // 정상 응답 처리
                     if (response.data.resultCode === 'SUCCESS') {
                         alert('회원가입 성공');
                         window.location.href = '../html/login.html';
@@ -123,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 로그인 폼 제출 처리 (기본 로그인 예시)
     const loginFormSubmit = document.getElementById("login-form");
     if (loginFormSubmit) {
         loginFormSubmit.addEventListener("submit", function (event) {
@@ -135,14 +123,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 formObject[key] = value;
             });
 
-            // 서버에 로그인 데이터 전송
             axios.post('http://localhost:8080/api/users/login', formObject)
                 .then(response => {
                     if (response.data.resultCode === "SUCCESS" && response.data.result.role === "USER") {
                         const token = response.data.result.token;
                         localStorage.setItem("AccessToken", token);
                         localStorage.setItem("Role", response.data.result.role);
-                        window.location.href = '../html/index.html';
+                        window.location.href = '../index.html';
                     } else if (response.data.resultCode === "SUCCESS" && response.data.result.role === "ADMIN") {
                         const token = response.data.result.token;
                         localStorage.setItem("AccessToken", token);

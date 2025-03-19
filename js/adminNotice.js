@@ -12,21 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const isAdmin = checkAdminRole();  // 관리자인지 체크
+    const isAdmin = checkAdminRole();
 
     if (!isAdmin) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';        // 홈 페이지나 다른 페이지로 리다이렉트
+        window.location.href = '../html/login.html';
         return;
     }
 
-    // 공지사항 추가 버튼 클릭 시 폼 보이기
     addNoticeBtn.addEventListener('click', () => addNoticeForm.style.display = 'block');
 
-    // 취소 버튼 클릭 시 폼 숨기기
     cancelBtn.addEventListener('click', () => {
         addNoticeForm.style.display = 'none';
-        noticeForm.reset(); // 입력된 내용 초기화
+        noticeForm.reset();
     });
 
     noticeForm.addEventListener('submit', (event) => {
@@ -90,7 +88,7 @@ async function fetchNotices() {
 
             result.forEach((notice, index) => {
                 const row = document.createElement('tr');
-                row.setAttribute('data-id', notice.id);  // 각 행에 ID 추가
+                row.setAttribute('data-id', notice.id);
 
                 row.innerHTML = `
                     <td>${index + 1}</td>
@@ -117,11 +115,9 @@ function editNotice(noticeId) {
     const titleCell = row.querySelector('td[data-field="title"]');
     const contentCell = row.querySelector('td[data-field="content"]');
 
-    // 기존 값을 input으로 변경
     titleCell.innerHTML = `<input style="width: 200px; type="text" value="${titleCell.innerText}">`;
     contentCell.innerHTML = `<textarea style="resize: none; width: 300px;">${contentCell.innerText}</textarea>`;
 
-    // 수정 버튼을 저장 버튼으로 변경
     const actionCell = row.querySelector('td:last-child');
     actionCell.innerHTML = `
         <button class="btn btn-success btn-sm" onclick="saveChanges(${noticeId})">저장</button>
@@ -155,7 +151,7 @@ async function saveChanges(noticeId) {
 
         if (response.data.resultCode === 'SUCCESS') {
             alert('공지사항이 수정되었습니다.');
-            fetchNotices(); // 공지사항 리스트 갱신
+            fetchNotices();
         } else {
             alert(`수정 실패: ${response.data.message}`);
         }
@@ -215,7 +211,6 @@ function submitNoticeForm() {
         content: content
     };
 
-    // 공지사항 추가 API 호출
     axios.post('http://localhost:8080/api/admin/notice', newNotice, {
         headers: {
             'Authorization': `Bearer ${accessToken}`

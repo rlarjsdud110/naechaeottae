@@ -2,61 +2,50 @@ let isLoggedIn = false;
 let userRole = null;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // 랭킹 데이터와 핫딜 데이터 가져오기
     fetchRankingData();
     fetchHotDeals();
     fetchNotices();
 
-    // AccessToken 확인 및 로그인 상태 초기화
     const accessToken = localStorage.getItem("AccessToken");
     if (accessToken) {
         isLoggedIn = true;
         userRole = localStorage.getItem("Role");
     }
 
-    // 로그인 상태 업데이트
     updateLoginState();
 });
 
-// 로그인/로그아웃 상태 업데이트 함수
 function updateLoginState() {
-    // 로그인/로그아웃 상태에 따라 버튼 변경
     if (isLoggedIn) {
         document.getElementById('login-logout-btn').textContent = '로그아웃';
 
-        // 역할에 따라 버튼을 변경
         if (userRole === 'ADMIN') {
             document.getElementById('admin-page-btn').style.display = 'inline-block';
-            document.getElementById('my-page-btn').style.display = 'none'; // 마이페이지는 숨김
+            document.getElementById('my-page-btn').style.display = 'none';
         } else if (userRole === 'USER') {
-            document.getElementById('admin-page-btn').style.display = 'none'; // 관리자페이지 숨김
-            document.getElementById('my-page-btn').style.display = 'inline-block'; // 마이페이지 표시
+            document.getElementById('admin-page-btn').style.display = 'none';
+            document.getElementById('my-page-btn').style.display = 'inline-block';
         }
     } else {
         document.getElementById('login-logout-btn').textContent = '로그인';
         document.getElementById('my-page-btn').style.display = 'none';
-        document.getElementById('admin-page-btn').style.display = 'none'; // 로그아웃 상태에서는 관리자 버튼도 숨김
+        document.getElementById('admin-page-btn').style.display = 'none';
     }
 }
 
-// 로그인 상태 토글 함수
 function toggleLoginState() {
     if (isLoggedIn) {
-        // 로그아웃 처리
         localStorage.removeItem("AccessToken");
         localStorage.removeItem("Role");
         alert('로그아웃 완료');
         isLoggedIn = false;
     } else {
-        // 로그인 상태에서 로그아웃 처리 후 페이지 갱신
-        window.location.href = '../html/login.html';  // 로그인 페이지로 리다이렉트
+        window.location.href = '../html/login.html';
     }
 
-    // 로그인 상태 갱신 (로그아웃 후 상태 변경)
     updateLoginState();
 }
 
-/* 공지사항 데이터 가져오기 */
 async function fetchNotices() {
     try {
         const response = await axios.get('http://localhost:8080/api/notice/list');
@@ -69,13 +58,13 @@ async function fetchNotices() {
         }
 
         if (resultCode === "SUCCESS" && result) {
-            swiperWrapper.innerHTML = ''; // 기존 내용 삭제
+            swiperWrapper.innerHTML = '';
 
-            // 색상을 순차적으로 반복하기 위한 색상 배열
+
             const colors = [
-                { backgroundColor: '#d1ecf1', borderColor: '#bee5eb', color: '#0c5460' }, // 색 1
-                { backgroundColor: '#fff3cd', borderColor: '#ffeeba', color: '#856404' }, // 색 2
-                { backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24' }, // 색 3
+                { backgroundColor: '#d1ecf1', borderColor: '#bee5eb', color: '#0c5460' },
+                { backgroundColor: '#fff3cd', borderColor: '#ffeeba', color: '#856404' },
+                { backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24' },
             ];
 
             result.forEach((notice, index) => {
@@ -83,10 +72,9 @@ async function fetchNotices() {
                 slide.classList.add('swiper-slide');
 
                 const noticeDiv = document.createElement('div');
-                noticeDiv.classList.add('notice-card'); // 카드 스타일 추가
+                noticeDiv.classList.add('notice-card');
 
-                // 색상 배열을 사용해 순차적으로 색을 적용
-                const colorIndex = index % colors.length; // 색상을 순차적으로 적용
+                const colorIndex = index % colors.length;
                 const { backgroundColor, borderColor, color } = colors[colorIndex];
 
                 noticeDiv.style.backgroundColor = backgroundColor;
@@ -101,7 +89,6 @@ async function fetchNotices() {
                 swiperWrapper.appendChild(slide);
             });
 
-            // Swiper 초기화 (공지사항 슬라이드)
             new Swiper(".notice", {
                 slidesPerView: 1,
                 spaceBetween: 10,
@@ -119,7 +106,6 @@ async function fetchNotices() {
     }
 }
 
-/* 순위 데이터 가져오기 */
 async function fetchRankingData() {
     try {
         const response = await axios.get('http://localhost:8080/api/cars/rankings');
@@ -128,13 +114,11 @@ async function fetchRankingData() {
         if (resultCode === "SUCCESS" && result) {
             const { viewRankings, recentRankings } = result;
 
-            // 조회 순위 렌더링
             if (viewRankings && Array.isArray(viewRankings)) {
-                // viewCount를 기준으로 내림차순 정렬
                 viewRankings.sort((a, b) => b.viewCount - a.viewCount);
 
                 const viewRankingsList = document.getElementById('viewRankings');
-                viewRankingsList.innerHTML = ''; // 기존 내용 삭제
+                viewRankingsList.innerHTML = '';
                 viewRankings.forEach((ranking, index) => {
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `<a href="/html/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
@@ -142,10 +126,9 @@ async function fetchRankingData() {
                 });
             }
 
-            // 최신등록 순위 렌더링
             if (recentRankings && Array.isArray(recentRankings)) {
                 const recentRankingsList = document.getElementById('recentRankings');
-                recentRankingsList.innerHTML = ''; // 기존 내용 삭제
+                recentRankingsList.innerHTML = '';
                 recentRankings.forEach((ranking, index) => {
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `<a href="/html/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
@@ -160,7 +143,6 @@ async function fetchRankingData() {
     }
 }
 
-/* 핫딜 차량 데이터 가져오기 */
 const carsPerPage = 4;
 let currentPage = 1;
 let cars = [];
@@ -235,16 +217,13 @@ function renderCars() {
     carsToDisplay.forEach(car => {
         const carCard = document.createElement('div');
         carCard.classList.add('col', 'mb-4');
-        // 핫딜 여부에 따라 처리
         const isHotDeal = car.isHotDeal && car.discountedPrice > 0;
 
-        // 핫딜 뱃지를 적용할지 여부 확인
         const hotDealBadge = isHotDeal ? `
             <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem;">
                 핫딜
             </div>` : '';
 
-        // 가격 표시 부분
         const priceHTML = isHotDeal ? `
             <p>
                 <span class="text-muted text-decoration-line-through" style="font-size: 0.9rem;">

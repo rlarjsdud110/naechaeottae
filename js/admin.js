@@ -90,10 +90,9 @@ function fetchDashboardData() {
 
 function updateVehicleTable(cars) {
     const tableBody = document.querySelector('#recentCarsTable tbody');
-    tableBody.innerHTML = ''; // 기존 데이터를 초기화
+    tableBody.innerHTML = '';
 
     cars.forEach(car => {
-        // car 값이 null이 아니고 각 속성이 null이 아닌지 확인
         if (car && car.carModel && car.carModelYear && car.carPrice !== null && car.carCreatedAt) {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -109,10 +108,9 @@ function updateVehicleTable(cars) {
 
 function updateConsultationTable(consultations) {
     const tableBody = document.querySelector('#recentConsultationsTable tbody');
-    tableBody.innerHTML = ''; // 기존 데이터를 초기화
+    tableBody.innerHTML = '';
 
     consultations.forEach(consultation => {
-        // consultation 값이 null이 아니고 각 속성이 null이 아닌지 확인
         if (consultation && consultation.consultEmail && consultation.consultTitle && consultation.consultStatus && consultation.consultCreatedAt) {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -128,10 +126,9 @@ function updateConsultationTable(consultations) {
 
 function updateNoticeTable(notices) {
     const tableBody = document.querySelector('#recentNoticesTable tbody');
-    tableBody.innerHTML = ''; // 기존 데이터를 초기화
+    tableBody.innerHTML = '';
 
     notices.forEach(notice => {
-        // notice 값이 null이 아니고 각 속성이 null이 아닌지 확인
         if (notice) {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -146,7 +143,7 @@ function updateNoticeTable(notices) {
 
 function updateCustomerTable(customers) {
     const tableBody = document.querySelector('#recentCustomersTable tbody');
-    tableBody.innerHTML = ''; // 기존 데이터를 초기화
+    tableBody.innerHTML = '';
 
     customers.forEach(customer => {
         if (customer) {
