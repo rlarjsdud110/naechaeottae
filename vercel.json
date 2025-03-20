@@ -1,3 +1,10 @@
 {
-    "cleanUrls": true
+    "cleanUrls": true,
+    "redirects": [
+        {
+            "source": "/:path",
+            "destination": "/html/:path.html",
+            "statusCode": 200
+        }
+    ]
 }
