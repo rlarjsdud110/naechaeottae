@@ -27,9 +27,9 @@ function toggleLoginState() {
         localStorage.removeItem("AccessToken");
         alert('로그아웃 완료');
         isLoggedIn = false;
-        window.location.href = '../index.html';
+        window.location.href = '/index.html';
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 
     updateLoginState();
@@ -97,7 +97,7 @@ function loadConsultData() {
             if (error.response && error.response.status === 403) {
                 alert("토큰이 만료되었습니다. 로그인 페이지로 이동합니다.");
                 localStorage.removeItem("AccessToken");
-                window.location.href = "login.html";
+                window.location.href = "/login.html";
             } else {
                 console.error("문의 내역 로딩 실패:", error);
                 alert('문의 내역을 불러오는 데 실패했습니다.');
@@ -108,7 +108,7 @@ function loadConsultData() {
 function loadUserInfo() {
     if (!accessToken) {
         alert("토큰이 만료되었습니다. 다시 로그인해 주세요.");
-        window.location.href = "../index.html";
+        window.location.href = "/index.html";
         return;
     }
 
@@ -129,7 +129,7 @@ function loadUserInfo() {
             if (error.response && error.response.data && error.response.data.resultCode === "USER_NOT_FOUND") {
                 alert("사용자를 찾을 수 없습니다. 다시 로그인해 주세요.");
                 localStorage.removeItem("AccessToken");
-                window.location.href = "../index.html";
+                window.location.href = "/index.html";
             }
         });
 }
@@ -241,7 +241,7 @@ function loadCartData() {
                 listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
 
                 listItem.onclick = function () {
-                    window.location.href = `/html/details.html?id=${item.id}`;
+                    window.location.href = `/details.html?id=${item.id}`;
                 };
 
                 const modelSpan = document.createElement('span');

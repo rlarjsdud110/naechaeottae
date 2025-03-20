@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!accessToken || !checkAdminRole()) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -90,5 +90,5 @@ function toggleLoginState() {
         localStorage.removeItem("Role");
         alert('로그아웃 완료');
     }
-    window.location.href = '../html/login.html';
+    window.location.href = '/login.html';
 }

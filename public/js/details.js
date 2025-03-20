@@ -36,9 +36,9 @@ function toggleLoginState() {
         localStorage.removeItem("AccessToken");
         alert('로그아웃 완료');
         isLoggedIn = false;
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 
     updateLoginState();
@@ -137,7 +137,7 @@ function displayCarDetail(carData) {
 document.getElementById('wishlist-btn').addEventListener('click', function () {
     if (!isLoggedIn) {
         alert('로그인 후 이용 가능한 서비스입니다. 로그인 페이지로 이동합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     } else {
         const heartIcon = document.querySelector('#wishlist-btn i');
         const carId = getCarIdFromURL();
@@ -282,7 +282,7 @@ function showPurchaseModal() {
 document.getElementById('purchaseRequestBtn').addEventListener('click', function () {
     if (!isLoggedIn) {
         alert('로그인 후 구매 요청을 하실 수 있습니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
     const urlParams = new URLSearchParams(window.location.search);

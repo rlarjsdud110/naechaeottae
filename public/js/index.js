@@ -40,7 +40,7 @@ function toggleLoginState() {
         alert('로그아웃 완료');
         isLoggedIn = false;
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 
     updateLoginState();

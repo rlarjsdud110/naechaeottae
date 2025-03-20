@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     accessToken = localStorage.getItem("AccessToken");
     if (!accessToken) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!isAdmin) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -64,7 +64,7 @@ function fetchRequestList(tab) {
         .catch(error => {
             if (error.response && error.response.status === 403) {
                 alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
-                window.location.href = '../html/login.html';
+                window.location.href = '/login.html';
             } else {
                 console.error('문의 목록을 가져오는 데 실패했습니다:', error);
             }
@@ -203,7 +203,7 @@ function viewRequestDetail(requestId) {
         .catch(error => {
             if (error.response && error.response.status === 403) {
                 alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
-                window.location.href = '../html/login.html';
+                window.location.href = '/login.html';
             } else {
                 console.error('상세보기 오류:', error);
             }
@@ -242,8 +242,8 @@ function toggleLoginState() {
         localStorage.removeItem("AccessToken");
         localStorage.removeItem("Role");
         alert('로그아웃 완료');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 }

@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => {
                     if (response.data.resultCode === 'SUCCESS') {
                         alert('회원가입 성공');
-                        window.location.href = '../html/login.html';
+                        window.location.href = '/login.html';
                     } else {
                         alert('회원가입 실패');
                     }
@@ -129,12 +129,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         const token = response.data.result.token;
                         localStorage.setItem("AccessToken", token);
                         localStorage.setItem("Role", response.data.result.role);
-                        window.location.href = '../index.html';
+                        window.location.href = '/index.html';
                     } else if (response.data.resultCode === "SUCCESS" && response.data.result.role === "ADMIN") {
                         const token = response.data.result.token;
                         localStorage.setItem("AccessToken", token);
                         localStorage.setItem("Role", response.data.result.role);
-                        window.location.href = '../html/admin.html';
+                        window.location.href = '/admin.html';
                     } else {
                         alert('로그인 실패');
                     }

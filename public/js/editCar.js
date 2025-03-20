@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!accessToken) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!isAdmin) {
         alert('관리자만 접근 가능합니다.');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
         return;
     }
     fetchCarDetails();
@@ -31,9 +31,9 @@ function toggleLoginState() {
         localStorage.removeItem("AccessToken");
         localStorage.removeItem("Role");
         alert('로그아웃 완료');
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     } else {
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 }
 
@@ -167,11 +167,11 @@ document.getElementById("carForm").addEventListener("submit", async function (ev
 
         alert("등록 성공!");
         console.log(response.data);
-        window.location.href = '../html/adminCars.html';
+        window.location.href = '/adminCars.html';
     } catch (error) {
         if (error.response && error.response.status === 403) {
             alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
-            window.location.href = '../html/login.html';
+            window.location.href = '/login.html';
         } else {
             alert("등록 실패!");
         }

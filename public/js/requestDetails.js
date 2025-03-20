@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         isLoggedIn = true;
     } else {
         alert("로그인이 필요한 서비스 입니다. 로그인 후 이용해주세요.");
-        window.location.href = "../index.html";
+        window.location.href = "/index.html";
         return;
     }
     updateLoginState();
@@ -29,10 +29,10 @@ function toggleLoginState() {
         localStorage.removeItem("AccessToken");
         alert('로그아웃 완료');
         isLoggedIn = false;
-        window.location.href = '../index.html';
+        window.location.href = '/index.html';
     } else {
 
-        window.location.href = '../html/login.html';
+        window.location.href = '/login.html';
     }
 
     updateLoginState();
@@ -114,7 +114,7 @@ function deleteInquiry() {
             .then(response => {
                 if (response.data.resultCode === "SUCCESS") {
                     alert("문의 내역이 삭제되었습니다.");
-                    window.location.href = "mypage.html";
+                    window.location.href = "/mypage.html";
                 } else {
                     alert("삭제에 실패했습니다.");
                 }
