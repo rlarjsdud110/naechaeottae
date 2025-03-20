@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } else {
         alert("로그인이 필요한 서비스 입니다. 로그인 후 이용해주세요.");
-        window.location.href = "/index.html";
+        window.location.href = "/login.html";
         return;
     }
     updateLoginState();
