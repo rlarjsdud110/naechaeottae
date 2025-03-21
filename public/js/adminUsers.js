@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchUsers(page = 0, searchQuery = "") {
-    const url = `http://localhost:8080/api/admin/users?page=${page}&size=10&search=${searchQuery}`;
+    const url = `http://13.124.146.78:8080/api/admin/users?page=${page}&size=10&search=${searchQuery}`;
 
     axios.get(url, {
         headers: { "Authorization": `Bearer ${accessToken}` }

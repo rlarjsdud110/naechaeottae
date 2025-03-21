@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchNotices() {
     try {
-        const response = await axios.get('http://localhost:8080/api/notice/list');
+        const response = await axios.get('http://13.124.146.78:8080/api/notice/list');
         const { resultCode, result } = response.data;
 
         const noticeTableBody = document.getElementById('noticeTableBody');
@@ -74,7 +74,7 @@ async function fetchNotices() {
 
 async function fetchNotices() {
     try {
-        const response = await axios.get('http://localhost:8080/api/notice/list');
+        const response = await axios.get('http://13.124.146.78:8080/api/notice/list');
         const { resultCode, result } = response.data;
 
         const noticeTableBody = document.getElementById('noticeTableBody');
@@ -143,7 +143,7 @@ async function saveChanges(noticeId) {
     };
 
     try {
-        const response = await axios.put(`http://localhost:8080/api/admin/notice/${noticeId}`, updatedData, {
+        const response = await axios.put(`http://13.124.146.78:8080/api/admin/notice/${noticeId}`, updatedData, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -173,7 +173,7 @@ async function deleteNotice(noticeId) {
 
     if (confirmDelete) {
         try {
-            const response = await axios.delete(`http://localhost:8080/api/admin/notice/${noticeId}`, {
+            const response = await axios.delete(`http://13.124.146.78:8080/api/admin/notice/${noticeId}`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
@@ -211,7 +211,7 @@ function submitNoticeForm() {
         content: content
     };
 
-    axios.post('http://localhost:8080/api/admin/notice', newNotice, {
+    axios.post('http://13.124.146.78:8080/api/admin/notice', newNotice, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }

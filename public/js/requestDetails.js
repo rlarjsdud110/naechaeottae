@@ -106,7 +106,7 @@ function deleteInquiry() {
     if (isEditing) {
         saveInquiryChanges();
     } else {
-        axios.delete(`http://localhost:8080/api/consult/${inquiryId}`, {
+        axios.delete(`http://13.124.146.78:8080/api/consult/${inquiryId}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("AccessToken")}`
             }

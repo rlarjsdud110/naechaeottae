@@ -36,7 +36,7 @@ function toggleLoginState() {
 }
 
 function loadConsultData() {
-    axios.get('http://localhost:8080/api/consult/list', {
+    axios.get('http://13.124.146.78:8080/api/consult/list', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -112,7 +112,7 @@ function loadUserInfo() {
         return;
     }
 
-    axios.get('http://localhost:8080/api/users/userInfo', {
+    axios.get('http://13.124.146.78:8080/api/users/userInfo', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -176,7 +176,7 @@ function saveUserInfo() {
     const cancelButton = document.getElementById("cancel-info-btn");
     cancelButton.style.display = "none";
 
-    axios.put('http://localhost:8080/api/users/update', {
+    axios.put('http://13.124.146.78:8080/api/users/update', {
         name: updatedName,
         email: updatedEmail,
         phone: updatedPhone
@@ -225,7 +225,7 @@ if (signupPhone) {
 }
 
 function loadCartData() {
-    axios.get('http://localhost:8080/api/users/cart', {
+    axios.get('http://13.124.146.78:8080/api/users/cart', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -268,7 +268,7 @@ function loadCartData() {
 }
 
 function loadPurchaseData() {
-    axios.get('http://localhost:8080/api/users/purchase', {
+    axios.get('http://13.124.146.78:8080/api/users/purchase', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -311,7 +311,7 @@ function loadPurchaseData() {
 }
 
 function removePurchaseItem(purchaseId) {
-    axios.delete(`http://localhost:8080/api/users/purchase/${purchaseId}`, {
+    axios.delete(`http://13.124.146.78:8080/api/users/purchase/${purchaseId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -327,7 +327,7 @@ function removePurchaseItem(purchaseId) {
 }
 
 function removeCartItem(itemId) {
-    axios.delete(`http://localhost:8080/api/users/cart/delete/${itemId}`, {
+    axios.delete(`http://13.124.146.78:8080/api/users/cart/delete/${itemId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }

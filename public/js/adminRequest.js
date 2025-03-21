@@ -47,9 +47,9 @@ function checkAdminRole() {
 function fetchRequestList(tab) {
     let url = '';
     if (tab === 'general') {
-        url = 'http://localhost:8080/api/admin/consult';
+        url = 'http://13.124.146.78:8080/api/admin/consult';
     } else if (tab === 'purchase') {
-        url = 'http://localhost:8080/api/admin/purchase';
+        url = 'http://13.124.146.78:8080/api/admin/purchase';
     }
 
     axios.get(url, {
@@ -132,7 +132,7 @@ function viewRequestDetail(requestId) {
         return;
     }
 
-    axios.get(`http://localhost:8080/api/consult/${requestId}`, {
+    axios.get(`http://13.124.146.78:8080/api/consult/${requestId}`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
@@ -179,7 +179,7 @@ function viewRequestDetail(requestId) {
                     taskType: '답변완료'
                 };
 
-                axios.patch(`http://localhost:8080/api/admin/consult/${requestId}`, dataToSend,
+                axios.patch(`http://13.124.146.78:8080/api/admin/consult/${requestId}`, dataToSend,
                     {
                         headers: {
                             'Authorization': `Bearer ${accessToken}`
@@ -215,9 +215,9 @@ function deleteRequest(requestId, tab) {
     let url = '';
 
     if (tab === 'general') {
-        url = `http://localhost:8080/api/admin/consult/${requestId}`;
+        url = `http://13.124.146.78:8080/api/admin/consult/${requestId}`;
     } else if (tab === 'purchase') {
-        url = `http://localhost:8080/api/admin/purchase/${requestId}`;
+        url = `http://13.124.146.78:8080/api/admin/purchase/${requestId}`;
     }
 
     axios.delete(url, {
