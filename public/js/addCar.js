@@ -103,7 +103,7 @@ document.getElementById("carForm").addEventListener("submit", async function (ev
     }
 
     try {
-        const response = await axios.post("http://naechaeottae.shop/api/admin/car/create", formData, {
+        const response = await axios.post("https://naechaeottae.shop/api/admin/car/create", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${accessToken}`

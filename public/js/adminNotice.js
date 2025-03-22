@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchNotices() {
     try {
-        const response = await axios.get('http://naechaeottae.shop/api/notice/list');
+        const response = await axios.get('https://naechaeottae.shop/api/notice/list');
         const { resultCode, result } = response.data;
 
         const noticeTableBody = document.getElementById('noticeTableBody');
@@ -74,7 +74,7 @@ async function fetchNotices() {
 
 async function fetchNotices() {
     try {
-        const response = await axios.get('http://naechaeottae.shop/api/notice/list');
+        const response = await axios.get('https://naechaeottae.shop/api/notice/list');
         const { resultCode, result } = response.data;
 
         const noticeTableBody = document.getElementById('noticeTableBody');
@@ -143,7 +143,7 @@ async function saveChanges(noticeId) {
     };
 
     try {
-        const response = await axios.put(`http://naechaeottae.shop/api/admin/notice/${noticeId}`, updatedData, {
+        const response = await axios.put(`https://naechaeottae.shop/api/admin/notice/${noticeId}`, updatedData, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -173,7 +173,7 @@ async function deleteNotice(noticeId) {
 
     if (confirmDelete) {
         try {
-            const response = await axios.delete(`http://naechaeottae.shop/api/admin/notice/${noticeId}`, {
+            const response = await axios.delete(`https://naechaeottae.shop/api/admin/notice/${noticeId}`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
@@ -211,7 +211,7 @@ function submitNoticeForm() {
         content: content
     };
 
-    axios.post('http://naechaeottae.shop/api/admin/notice', newNotice, {
+    axios.post('https://naechaeottae.shop/api/admin/notice', newNotice, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }

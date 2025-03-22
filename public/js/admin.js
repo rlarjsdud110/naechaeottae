@@ -41,7 +41,7 @@ function toggleLoginState() {
 }
 
 function fetchDashboardStats() {
-    axios.get('http://naechaeottae.shop/api/admin/dashboard', {
+    axios.get('https://naechaeottae.shop/api/admin/dashboard', {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
@@ -69,7 +69,7 @@ function checkAdminRole() {
 }
 
 function fetchDashboardData() {
-    axios.get('http://naechaeottae.shop/api/admin/recent', {
+    axios.get('https://naechaeottae.shop/api/admin/recent', {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }

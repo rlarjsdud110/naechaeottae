@@ -36,7 +36,7 @@ function toggleLoginState() {
 }
 
 function loadConsultData() {
-    axios.get('http://naechaeottae.shop/api/consult/list', {
+    axios.get('https://naechaeottae.shop/api/consult/list', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -112,7 +112,7 @@ function loadUserInfo() {
         return;
     }
 
-    axios.get('http://naechaeottae.shop/api/users/userInfo', {
+    axios.get('https://naechaeottae.shop/api/users/userInfo', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -176,7 +176,7 @@ function saveUserInfo() {
     const cancelButton = document.getElementById("cancel-info-btn");
     cancelButton.style.display = "none";
 
-    axios.put('http://naechaeottae.shop/api/users/update', {
+    axios.put('https://naechaeottae.shop/api/users/update', {
         name: updatedName,
         email: updatedEmail,
         phone: updatedPhone
@@ -225,7 +225,7 @@ if (signupPhone) {
 }
 
 function loadCartData() {
-    axios.get('http://naechaeottae.shop/api/users/cart', {
+    axios.get('https://naechaeottae.shop/api/users/cart', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -268,7 +268,7 @@ function loadCartData() {
 }
 
 function loadPurchaseData() {
-    axios.get('http://naechaeottae.shop/api/users/purchase', {
+    axios.get('https://naechaeottae.shop/api/users/purchase', {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -311,7 +311,7 @@ function loadPurchaseData() {
 }
 
 function removePurchaseItem(purchaseId) {
-    axios.delete(`http://naechaeottae.shop/api/users/purchase/${purchaseId}`, {
+    axios.delete(`https://naechaeottae.shop/api/users/purchase/${purchaseId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -327,7 +327,7 @@ function removePurchaseItem(purchaseId) {
 }
 
 function removeCartItem(itemId) {
-    axios.delete(`http://naechaeottae.shop/api/users/cart/delete/${itemId}`, {
+    axios.delete(`https://naechaeottae.shop/api/users/cart/delete/${itemId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }

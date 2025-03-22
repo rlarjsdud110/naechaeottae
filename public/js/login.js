@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            axios.post('http://naechaeottae.shop/api/users/signup', formObject)
+            axios.post('https://naechaeottae.shop/api/users/signup', formObject)
                 .then(response => {
                     if (response.data.resultCode === 'SUCCESS') {
                         alert('회원가입 성공');
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 formObject[key] = value;
             });
 
-            axios.post('http://naechaeottae.shop/api/users/login', formObject)
+            axios.post('https://naechaeottae.shop/api/users/login', formObject)
                 .then(response => {
                     if (response.data.resultCode === "SUCCESS" && response.data.result.role === "USER") {
                         const token = response.data.result.token;

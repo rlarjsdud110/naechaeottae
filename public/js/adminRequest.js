@@ -47,9 +47,9 @@ function checkAdminRole() {
 function fetchRequestList(tab) {
     let url = '';
     if (tab === 'general') {
-        url = 'http://naechaeottae.shop/api/admin/consult';
+        url = 'https://naechaeottae.shop/api/admin/consult';
     } else if (tab === 'purchase') {
-        url = 'http://naechaeottae.shop/api/admin/purchase';
+        url = 'https://naechaeottae.shop/api/admin/purchase';
     }
 
     axios.get(url, {
@@ -132,7 +132,7 @@ function viewRequestDetail(requestId) {
         return;
     }
 
-    axios.get(`http://naechaeottae.shop/api/consult/${requestId}`, {
+    axios.get(`https://naechaeottae.shop/api/consult/${requestId}`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
@@ -179,7 +179,7 @@ function viewRequestDetail(requestId) {
                     taskType: '답변완료'
                 };
 
-                axios.patch(`http://naechaeottae.shop/api/admin/consult/${requestId}`, dataToSend,
+                axios.patch(`https://naechaeottae.shop/api/admin/consult/${requestId}`, dataToSend,
                     {
                         headers: {
                             'Authorization': `Bearer ${accessToken}`
@@ -215,9 +215,9 @@ function deleteRequest(requestId, tab) {
     let url = '';
 
     if (tab === 'general') {
-        url = `http://naechaeottae.shop/api/admin/consult/${requestId}`;
+        url = `https://naechaeottae.shop/api/admin/consult/${requestId}`;
     } else if (tab === 'purchase') {
-        url = `http://naechaeottae.shop/api/admin/purchase/${requestId}`;
+        url = `https://naechaeottae.shop/api/admin/purchase/${requestId}`;
     }
 
     axios.delete(url, {

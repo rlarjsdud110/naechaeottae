@@ -56,7 +56,7 @@ async function loadCarList() {
         let response;
 
         if (searchQuery) {
-            response = await axios.get(`http://naechaeottae.shop/api/cars/search`, {
+            response = await axios.get(`https://naechaeottae.shop/api/cars/search`, {
                 params: {
                     size: itemsPerPage,
                     page: currentPage - 1,
@@ -65,7 +65,7 @@ async function loadCarList() {
                 }
             });
         } else {
-            response = await axios.get(`http://naechaeottae.shop/api/cars/carList`, {
+            response = await axios.get(`https://naechaeottae.shop/api/cars/carList`, {
                 params: {
                     size: itemsPerPage,
                     page: currentPage - 1,

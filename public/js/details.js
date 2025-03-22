@@ -143,7 +143,7 @@ document.getElementById('wishlist-btn').addEventListener('click', function () {
         const carId = getCarIdFromURL();
 
         if (heartIcon.classList.contains('bi-heart')) {
-            axios.post(`http://naechaeottae.shop/api/users/cart/add/${carId}`, {}, {
+            axios.post(`https://naechaeottae.shop/api/users/cart/add/${carId}`, {}, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -158,7 +158,7 @@ document.getElementById('wishlist-btn').addEventListener('click', function () {
                     alert('찜 추가에 실패했습니다.');
                 });
         } else {
-            axios.delete(`http://naechaeottae.shop/api/users/cart/delete/${carId}`, {
+            axios.delete(`https://naechaeottae.shop/api/users/cart/delete/${carId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -197,7 +197,7 @@ function loadCarDetail() {
         'Authorization': `Bearer ${accessToken}`
     } : {};
 
-    axios.get(`http://naechaeottae.shop/api/cars/detail/${carId}`, { headers })
+    axios.get(`https://naechaeottae.shop/api/cars/detail/${carId}`, { headers })
         .then(response => {
             const carData = response.data.result;
             displayCarDetail(carData);
@@ -209,7 +209,7 @@ function loadCarDetail() {
 }
 
 function loadRecommendedCars() {
-    axios.get('http://naechaeottae.shop/api/cars/recommend')
+    axios.get('https://naechaeottae.shop/api/cars/recommend')
         .then(response => {
             const recommendedCars = response.data.result;
             displayRecommendedCars(recommendedCars);
@@ -288,7 +288,7 @@ document.getElementById('purchaseRequestBtn').addEventListener('click', function
     const urlParams = new URLSearchParams(window.location.search);
     const carId = urlParams.get('id');
 
-    axios.post(`http://naechaeottae.shop/api/users/purchase/${carId}`, {}, {
+    axios.post(`https://naechaeottae.shop/api/users/purchase/${carId}`, {}, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }

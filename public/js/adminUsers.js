@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchUsers(page = 0, searchQuery = "") {
-    const url = `http://naechaeottae.shop/api/admin/users?page=${page}&size=10&search=${searchQuery}`;
+    const url = `https://naechaeottae.shop/api/admin/users?page=${page}&size=10&search=${searchQuery}`;
 
     axios.get(url, {
         headers: { "Authorization": `Bearer ${accessToken}` }
