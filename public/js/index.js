@@ -48,7 +48,7 @@ function toggleLoginState() {
 
 async function fetchNotices() {
     try {
-        const response = await axios.get('http://13.124.146.78:8080/api/notice/list');
+        const response = await axios.get('http://naechaeottae.shop/api/notice/list');
         const { resultCode, result } = response.data;
 
         const swiperWrapper = document.querySelector('.swiper-wrapper');
@@ -108,7 +108,7 @@ async function fetchNotices() {
 
 async function fetchRankingData() {
     try {
-        const response = await axios.get('http://13.124.146.78:8080/api/cars/rankings');
+        const response = await axios.get('http://naechaeottae.shop/api/cars/rankings');
         const { resultCode, result } = response.data;
 
         if (resultCode === "SUCCESS" && result) {
@@ -156,7 +156,7 @@ const pageNumbers = document.getElementById('page-numbers');
 
 async function fetchHotDeals() {
     try {
-        const response = await axios.get('http://13.124.146.78:8080/api/cars/hotDeals');
+        const response = await axios.get('http://naechaeottae.shop/api/cars/hotDeals');
         const { resultCode, result } = response.data;
 
         if (resultCode === 'SUCCESS') {

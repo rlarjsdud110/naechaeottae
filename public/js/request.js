@@ -132,7 +132,7 @@ document.getElementById("submitBtn").addEventListener("click", function (event) 
 
     console.log("Axios 요청을 보내고 있습니다.");
 
-    axios.post("http://13.124.146.78:8080/api/consult", formData, {
+    axios.post("http://naechaeottae.shop/api/consult", formData, {
         headers: {
             "Authorization": `Bearer ${accessToken}`,
         }

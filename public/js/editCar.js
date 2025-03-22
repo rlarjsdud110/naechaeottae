@@ -40,7 +40,7 @@ function toggleLoginState() {
 function fetchCarDetails() {
     const carId = getCarIdFromURL();
 
-    axios.get(`http://13.124.146.78:8080/api/cars/detail/${carId}`, {
+    axios.get(`http://naechaeottae.shop/api/cars/detail/${carId}`, {
 
     })
         .then(response => {
@@ -158,7 +158,7 @@ document.getElementById("carForm").addEventListener("submit", async function (ev
     }
 
     try {
-        const response = await axios.put(`http://13.124.146.78:8080/api/admin/car/update/${carId}`, formData, {
+        const response = await axios.put(`http://naechaeottae.shop/api/admin/car/update/${carId}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${accessToken}`

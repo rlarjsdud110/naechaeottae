@@ -41,7 +41,7 @@ function toggleLoginState() {
 function fetchInquiryDetails(accessToken) {
     const inquiryId = getQueryParam("id");
 
-    axios.get(`http://localhost:8080/api/consult/${inquiryId}`, {
+    axios.get(`http://naechaeottae.shop/api/consult/${inquiryId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -106,7 +106,7 @@ function deleteInquiry() {
     if (isEditing) {
         saveInquiryChanges();
     } else {
-        axios.delete(`http://13.124.146.78:8080/api/consult/${inquiryId}`, {
+        axios.delete(`http://naechaeottae.shop/api/consult/${inquiryId}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("AccessToken")}`
             }
