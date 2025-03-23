@@ -77,6 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (registerFormSubmit) {
         registerFormSubmit.addEventListener("submit", function (event) {
             event.preventDefault();
+
+            // 비밀번호와 비밀번호 확인이 일치하지 않으면 회원가입을 진행하지 않음
+            if (passwordField.value !== confirmPasswordField.value) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;  // 비밀번호가 일치하지 않으면 회원가입 요청을 보내지 않음
+            }
+
             const formData = new FormData(registerFormSubmit);
             const formObject = {};
 
