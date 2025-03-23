@@ -217,25 +217,21 @@ function renderCars() {
     carsToDisplay.forEach(car => {
         const carCard = document.createElement('div');
         carCard.classList.add('col', 'mb-4');
-        const isHotDeal = car.isHotDeal && car.discountedPrice > 0;
 
-        const hotDealBadge = isHotDeal ? `
+        // 🔥 핫딜 뱃지는 항상 포함됨
+        const hotDealBadge = `
             <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem;">
                 핫딜
-            </div>` : '';
+            </div>`;
 
-        const priceHTML = isHotDeal ? `
+        // 💰 할인 가격은 항상 적용됨
+        const priceHTML = `
             <p>
                 <span class="text-muted text-decoration-line-through" style="font-size: 0.9rem;">
                     ${car.price.toLocaleString()}만원
                 </span>
                 <span class="fw-bold text-danger ms-1" style="font-size: 1.2rem;">
                     ${car.discountedPrice.toLocaleString()}만원
-                </span>
-            </p>` : `
-            <p>
-                <span class="fw-bold text-danger ms-1" style="font-size: 1.2rem;">
-                    ${car.price.toLocaleString()}만원
                 </span>
             </p>`;
 
@@ -258,7 +254,6 @@ function renderCars() {
         carList.appendChild(carCard);
     });
 }
-
 
 function updatePaginationButtons() {
     prevButton.disabled = currentPage === 1;
