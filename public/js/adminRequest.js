@@ -115,7 +115,7 @@ function renderRequestList(requests, tab) {
                 <td>${request.phone}</td>
                 <td>${new Date(request.createdAt).toLocaleDateString()}</td>
                 <td>
-                    <a class="btn btn-outline-dark mt-auto" href="/html/details.html?id=${request.carId}">상세 정보</a>
+                    <a class="btn btn-outline-dark mt-auto" href="/details.html?id=${request.carId}">상세 정보</a>
                     <button class="btn btn-danger" onclick="deleteRequest(${request.purchaseId}, '${tab}')">삭제</button>
                 </td>
             `;

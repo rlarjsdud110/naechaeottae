@@ -121,7 +121,7 @@ async function fetchRankingData() {
                 viewRankingsList.innerHTML = '';
                 viewRankings.forEach((ranking, index) => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = `<a href="/html/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
+                    listItem.innerHTML = `<a href="/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
                     viewRankingsList.appendChild(listItem);
                 });
             }
@@ -131,7 +131,7 @@ async function fetchRankingData() {
                 recentRankingsList.innerHTML = '';
                 recentRankings.forEach((ranking, index) => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = `<a href="/html/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
+                    listItem.innerHTML = `<a href="/details.html?id=${ranking.id}">${index + 1}. ${ranking.model}</a>`;
                     recentRankingsList.appendChild(listItem);
                 });
             }
@@ -250,7 +250,7 @@ function renderCars() {
                     ${priceHTML}
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/html/details.html?id=${car.id}">상세 정보</a></div>
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/details.html?id=${car.id}">상세 정보</a></div>
                 </div>
             </div>
         `;

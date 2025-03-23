@@ -124,8 +124,8 @@ function renderCarList(cars) {
                     </div>
                     <div class="card-footer p-2 mt-2 border-top-0 bg-transparent">
                         <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" href="/html/details.html?id=${car.id}">상세 정보</a>
-                            <a class="btn btn-outline-dark mt-auto" href="/html/editCar.html?id=${car.id}">수정</a>
+                            <a class="btn btn-outline-dark mt-auto" href="/details.html?id=${car.id}">상세 정보</a>
+                            <a class="btn btn-outline-dark mt-auto" href="/editCar.html?id=${car.id}">수정</a>
                             <button class="btn btn-danger mt-auto" data-id="${car.id}" onclick="deleteCarHandler(this)">삭제</button>
                             </div>
                     </div>                

@@ -260,7 +260,7 @@ function displayRecommendedCars(cars) {
                     ${priceHTML}
                 </div>
                 <div class="card-footer p-2 border-top-0 bg-transparent">
-                    <div class="text-center mb-2"><a class="btn btn-outline-dark " href="/html/details.html?id=${car.id}">상세 정보</a></div>
+                    <div class="text-center mb-2"><a class="btn btn-outline-dark " href="/details.html?id=${car.id}">상세 정보</a></div>
                 </div>
             </div>
         `;

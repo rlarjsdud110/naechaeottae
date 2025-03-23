@@ -131,7 +131,7 @@ function renderCarList(cars) {
                     </div>
                     <div class="card-footer p-2 mt-2 border-top-0 bg-transparent">
                         <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" href="/html/details.html?id=${car.id}">상세 정보</a>
+                            <a class="btn btn-outline-dark mt-auto" href="/details.html?id=${car.id}">상세 정보</a>
                         </div>
                     </div>                
                 </div>
