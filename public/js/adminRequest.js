@@ -215,7 +215,7 @@ function deleteRequest(requestId, tab) {
     let url = '';
 
     if (tab === 'general') {
-        url = `https://naechaeottae.shop/api/admin/consult/${requestId}`;
+        url = `https://naechaeottae.shop/api/consult/${requestId}`;
     } else if (tab === 'purchase') {
         url = `https://naechaeottae.shop/api/admin/purchase/${requestId}`;
     }
